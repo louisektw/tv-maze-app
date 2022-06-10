@@ -1,14 +1,16 @@
-import { Color, ThemeType, Theme } from "./@types/theme.d";
+import { Color, ThemeType, Theme } from "./interfaces/theme.d";
 
 export const THEMES: Record<ThemeType, Theme> = {
     light: {
         "--primary": Color.WHITE,
-        "--secondary": Color.GRAY_LIGHT,
-        "--text": Color.BLACK,
+        "--secondary": Color.LIGHT_GRAY,
+        "--text": Color.DARK_GRAY,
+        "--common": Color.GRAY
     },
     dark: {
-        '--primary': Color.GRAY_DARK,
+        '--primary': Color.DARK_GRAY,
         '--secondary': Color.BLACK,
         '--text': Color.WHITE,
+        "--common": Color.GRAY
       }
 }

@@ -1,19 +1,19 @@
+import "../styles/AllResultsPage.css";
+
 import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { TvShowContextType } from "../@types/tvShow.d";
 import TvShow from "../components/TvShow";
+import SearchResultsBar from "../components/SearchResultsBar";
 import { TvShowContext } from "../context/TvShowContext";
-import "./AllResultsPage.css";
+import { ITvShowContext } from "../interfaces/tvShowContext";
 
-// export interface IAllResultsPageProps {};
-// const AllResultsPage:React.FunctionComponent<IAllResultsPageProps> = props => {
 const AllResultsPage = () => {
   const { shows, setShows, getTvShows, navigateToAllResults } = useContext(
     TvShowContext
-  ) as TvShowContextType;
+  ) as ITvShowContext;
 
   const { query } = useParams();
-  
+
   useEffect(() => {
     if (query!.length > 0) {
       getTvShows(query!).then((data: any[]) => {
@@ -22,10 +22,9 @@ const AllResultsPage = () => {
     }
   }, []);
 
-
   return (
     <div className="allResultsContainer">
-      <div className="allResultsText">All results for "{query}"</div>
+      <SearchResultsBar query={query} />
       {shows.length > 0 && (
         <div className="allResultsData">
           {shows?.map((show: any, key: number) => (
@@ -35,6 +34,7 @@ const AllResultsPage = () => {
           ))}
         </div>
       )}
+      <div className="allResultsFooter" />
     </div>
   );
 };

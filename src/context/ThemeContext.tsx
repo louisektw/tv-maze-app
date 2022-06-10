@@ -1,25 +1,19 @@
-import React, { Dispatch, ReactNode, SetStateAction } from "react";
+import { createContext, FC, useContext, useState } from "react";
+import { ThemeType } from "../interfaces/theme.d";
+import {
+  IThemeContext,
+  IThemeContextProviderProps,
+} from "../interfaces/themeContext";
 import { THEMES } from "../Theme.config";
-import { ThemeType, Theme } from "../@types/theme.d";
-
-//Context type
-export interface ThemeContextProps {
-  themeType: ThemeType;
-  theme: Theme;
-  setCurrentTheme: Dispatch<SetStateAction<ThemeType>> | null;
-  children: ReactNode;
-}
 
 //Context with initial state
-export const ThemeContext = React.createContext<ThemeContextProps>({
+export const ThemeContext = createContext<IThemeContext>({
   themeType: "dark",
   theme: THEMES["dark"],
-  setCurrentTheme: null,
-  children: null,
-});
+} as IThemeContext);
 
-export const ThemeProvider: React.FC<ThemeContextProps> = ({ children }) => {
-  const [currentTheme, setCurrentTheme] = React.useState<ThemeType>("light");
+export const ThemeProvider: FC<IThemeContextProviderProps> = ({ children }) => {
+  const [currentTheme, setCurrentTheme] = useState<ThemeType>("dark");
 
   return (
     <ThemeContext.Provider
@@ -27,7 +21,6 @@ export const ThemeProvider: React.FC<ThemeContextProps> = ({ children }) => {
         themeType: currentTheme,
         theme: THEMES[currentTheme],
         setCurrentTheme,
-        children,
       }}
     >
       {children}
@@ -35,4 +28,4 @@ export const ThemeProvider: React.FC<ThemeContextProps> = ({ children }) => {
   );
 };
 
-export const useTheme = () => React.useContext(ThemeContext);
+export const useTheme = () => useContext(ThemeContext);

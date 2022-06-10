@@ -1,39 +1,45 @@
+import "../styles/InputField.css";
+
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
-import "./InputField.css";
+import { FC } from "react";
 
-export const InputField = ({
-  query,
-  clearInput,
-  onChangeHandler,
-  placeholder,
-  isData,
-}: any) => {
+interface IInputFieldProps {
+  query: string;
+  clearInput: () => void;
+  onChangeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  placeholder: string;
+  isData: boolean;
+};
 
+const InputField:FC<IInputFieldProps> = props => {
   return (
     <div className="searchField">
       <input
         className="searchInput"
         type="text"
-        placeholder={placeholder}
-        value={query}
-        onChange={onChangeHandler}
+        placeholder={props.placeholder}
+        value={props.query}
+        onChange={props.onChangeHandler}
         style={{
-          borderBottomLeftRadius: isData ? "0px" : "40px",
+          borderBottomLeftRadius: props.isData ? "0px" : "40px",
         }}
       />
       <div
         className="searchIcon"
         style={{
-          borderBottomRightRadius: isData ? "0px" : "40px",
+          borderBottomRightRadius: props.isData ? "0px" : "40px",
         }}
       >
-        {query.length === 0 ? (
+        {props.query.length === 0 ? (
           <SearchIcon />
         ) : (
-          <CloseIcon id="clearBtn" onClick={clearInput} />
+          <CloseIcon id="clearBtn" onClick={props.clearInput} />
         )}
       </div>
     </div>
-  );
+  )
 };
+
+export default InputField;
+

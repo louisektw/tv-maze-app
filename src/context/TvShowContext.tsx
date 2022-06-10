@@ -1,18 +1,18 @@
 import axios from "axios";
 import { FC, ReactNode, useState, createContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { TvShowContextType } from "../@types/tvShow.d";
+import { ITvShowContext } from "../interfaces/tvShowContext";
 
 interface TvShowContextProviderProps {
   children: ReactNode;
 }
 
-export const TvShowContext = createContext<TvShowContextType | null>(null);
+export const TvShowContext = createContext<ITvShowContext | null>(null);
 
 export const TvShowProvider: FC<TvShowContextProviderProps> = ({
   children,
 }) => {
-  const [shows, setShows] = useState<TvShowContextType["shows"]>([]);
+  const [shows, setShows] = useState<ITvShowContext["shows"]>([]);
   const [query, setQuery] = useState("");
 
   const getTvShows = async (query: string) => {

@@ -1,12 +1,16 @@
-import "./Searchbar.css";
-import { ChangeEvent, useContext, useEffect } from "react";
-import TvShow from "./TvShow";
-import { TvShowContext } from "../context/TvShowContext";
-import { TvShowContextType } from "../@types/tvShow.d";
-import { InputField } from "./InputField";
-import { useTheme } from "../context/ThemeContext";
+import "../styles/Searchbar.css";
 
-const Searchbar = ({ placeholder }: any) => {
+import { ChangeEvent, FC, useContext, useEffect } from "react";
+import { TvShowContext } from "../context/TvShowContext";
+import { ITvShowContext } from "../interfaces/tvShowContext";
+import InputField from "./InputField";
+import TvShow from "./TvShow";
+
+interface ISearchBarProps {
+  placeholder: string;
+}
+
+const SearchBar: FC<ISearchBarProps> = (props) => {
   const {
     shows,
     setShows,
@@ -15,9 +19,7 @@ const Searchbar = ({ placeholder }: any) => {
     getTvShows,
     navigateToAllResults,
     navigateToDetails,
-  } = useContext(TvShowContext) as TvShowContextType;
-
-  const { theme, themeType } = useTheme();
+  } = useContext(TvShowContext) as ITvShowContext;
 
   useEffect(() => {
     if (query.length > 0) {
@@ -48,17 +50,11 @@ const Searchbar = ({ placeholder }: any) => {
             query={query}
             clearInput={clearInput}
             onChangeHandler={onChangeHandler}
-            placeholder={placeholder}
+            placeholder={props.placeholder}
             isData={shows?.length > 0}
           />
           {shows.length > 0 && (
-            <div
-              className="dataResult"
-              style={{
-                backgroundColor: theme["--primary"],
-                color: theme["--text"],
-              }}
-            >
+            <div className="dataResult">
               {shows?.slice(0, 5).map((show: any, key: number) => (
                 <a
                   className="dataRow"
@@ -67,6 +63,7 @@ const Searchbar = ({ placeholder }: any) => {
                   <TvShow show={show} />
                 </a>
               ))}
+              <hr />
               <div className="viewAllResultsText">
                 <a onClick={() => navigateToAllResults(`/allresults/${query}`)}>
                   View all results
@@ -79,4 +76,5 @@ const Searchbar = ({ placeholder }: any) => {
     </div>
   );
 };
-export default Searchbar;
+
+export default SearchBar;

@@ -1,17 +1,19 @@
-import "./TvShow.css";
+import "../styles/TvShow.css";
 
-const TvShow = (props: any) => {
+import { FC } from "react";
+
+interface ITvShowProps {
+  show: any;
+}
+const TvShow: FC<ITvShowProps> = (props) => {
+
   const { show } = props;
   const thumbnailSrc = show.image?.medium;
   const rating = show.rating?.average;
-
   return (
     <div className="tvShowContainer">
       <div className="tvShowInfo">
-        <div
-          className="tvShowItem"
-          
-        >
+        <div className="tvShowItem">
           <div className="thumbnail">
             <img src={thumbnailSrc} alt="thumbnail" />
           </div>

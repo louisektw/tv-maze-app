@@ -1,0 +1,10 @@
+.searchBarContainer {
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.searchBarText {
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 10px;
+}
